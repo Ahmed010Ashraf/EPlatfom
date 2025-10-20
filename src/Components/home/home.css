@@ -1,0 +1,53 @@
+    body {
+      font-family: 'Cairo', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* Smooth Fade-In Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Floating Image Animation */
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
+    }
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Hover Card */
+    .hover-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      transition: all 0.4s ;
+    }
+
+    /* Partner Logo Animation */
+    .partner-logo {
+      transition: transform 0.4s ;
+    }
+    .partner-logo:hover {
+      transform: scale(1.15);
+    }
+
+
+
+    /* card hover */
+
+    .card-go{
+      transition: all 0.5s ;
+    }
+    .card-go:hover {
+      transform: translateY(-6px) scale(1.03);
+    }

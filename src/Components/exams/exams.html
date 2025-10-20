@@ -1,0 +1,92 @@
+<div dir="rtl" class="min-h-screen bg-gray-50 py-10 px-5 md:px-20">
+  <div class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-gray-800 mb-3">الامتحانات المتاحة</h1>
+    <p class="text-gray-500">اختر الامتحان الذي ترغب في البدء فيه</p>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div
+      class="bg-white border border-gray-200 shadow-sm hover:shadow-md rounded-2xl transition-all duration-300 p-5 flex flex-col justify-between"
+    >
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+          امتحان أساسيات البرمجة
+        </h3>
+        <p class="text-gray-500 text-sm mb-4">
+          اختبار بسيط لتقييم معرفتك بأساسيات البرمجة بلغة C#.
+        </p>
+      </div>
+      <div class="mt-4 space-y-2 text-sm text-gray-600">
+        <div class="flex items-center justify-between">
+          <span>⏱️ المدة:</span>
+          <span class="font-medium">30 دقيقة</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span>📅 متاح من:</span>
+          <span class="font-medium">14 أكتوبر 2025</span>
+        </div>
+      </div>
+      <button [routerLink]="['/ExamDetails' , 1]"
+        class="mt-6 bg-blue-600 text-white font-semibold py-2 rounded-xl hover:bg-blue-700 transition duration-200"
+      >
+        ابدأ الامتحان
+      </button>
+    </div>
+
+    <div
+      class="bg-white border border-gray-200 shadow-sm hover:shadow-md rounded-2xl transition-all duration-300 p-5 flex flex-col justify-between"
+    >
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+          امتحان قواعد البيانات
+        </h3>
+        <p class="text-gray-500 text-sm mb-4">
+          اختبار متوسط لتقييم فهمك للعلاقات والجداول في قواعد البيانات.
+        </p>
+      </div>
+      <div class="mt-4 space-y-2 text-sm text-gray-600">
+        <div class="flex items-center justify-between">
+          <span>⏱️ المدة:</span>
+          <span class="font-medium">45 دقيقة</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span>📅 متاح من:</span>
+          <span class="font-medium">16 أكتوبر 2025</span>
+        </div>
+      </div>
+      <button [routerLink]="['/ExamDetails' , 1]"
+        class="mt-6 bg-blue-600 text-white font-semibold py-2 rounded-xl hover:bg-blue-700 transition duration-200"
+      >
+        ابدأ الامتحان
+      </button>
+    </div>
+
+    <div
+      class="bg-white border border-gray-200 shadow-sm hover:shadow-md rounded-2xl transition-all duration-300 p-5 flex flex-col justify-between"
+    >
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+          امتحان تطوير الويب
+        </h3>
+        <p class="text-gray-500 text-sm mb-4">
+          اختبار متقدم لتقييم مهاراتك في HTML وCSS وJavaScript.
+        </p>
+      </div>
+      <div class="mt-4 space-y-2 text-sm text-gray-600">
+        <div class="flex items-center justify-between">
+          <span>⏱️ المدة:</span>
+          <span class="font-medium">60 دقيقة</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span>📅 متاح من:</span>
+          <span class="font-medium">20 أكتوبر 2025</span>
+        </div>
+      </div>
+      <button [routerLink]="['/ExamDetails' , 1]"
+        class="mt-6 bg-blue-600 text-white font-semibold py-2 rounded-xl hover:bg-blue-700 transition duration-200"
+      >
+        ابدأ الامتحان
+      </button>
+    </div>
+  </div>
+</div>
