@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { Auth } from '../../app/Services/auth';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,28 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home {
+export class Home implements OnInit {
 
-  id:string = "3";
+  // id:string = "3";
+
+  constructor(private _auth : Auth , private _router : Router){
+
+  }
+  
+isUserLogin : boolean = false;
+
+ngOnInit(): void {
+  if(this._auth.userData.getValue() != null){
+    this.isUserLogin = true;
+  }
+  else {
+    this.isUserLogin = false;
+  }
+
+  console.log(this.isUserLogin);
+  
+}
+
 
   toggle(){
     
@@ -28,5 +48,13 @@ export class Home {
       return;
     }
   document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+}
+
+
+
+LogOut(){
+  localStorage.removeItem("Token");
+  this._auth.userData.next(null);
+  this._router.navigate(['Login'])
 }
 }

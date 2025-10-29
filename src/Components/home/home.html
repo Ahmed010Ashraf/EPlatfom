@@ -14,6 +14,13 @@
         <a (click)="scrollToSection('services')" class="hover:text-indigo-600 cursor-pointer ">خدماتنا</a>
         <a (click)="scrollToSection('courses')" class="hover:text-indigo-600 cursor-pointer">الدورات</a>
         <a routerLink="/Exams" class="hover:text-indigo-600 cursor-pointer">الامتحانات</a>
+        @if(!isUserLogin){
+          <a routerLink="/Login" class="hover:text-indigo-600 cursor-pointer">تسجيل الدخول</a>
+        <a routerLink="/Register" class="hover:text-indigo-600 cursor-pointer">انشاء حساب</a>
+        }
+        @else {
+          <button (click)="LogOut()" class="hover:text-indigo-600 cursor-pointer"> تسجيل الخروج</button>
+        }
       </nav>
       <button id="menu-btn" (click)="toggle()"  class="md:hidden text-gray-700 hover:text-indigo-600" >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
@@ -30,6 +37,14 @@
         <a (click)="scrollToSection('services')" class="hover:text-indigo-600 block cursor-pointer ">خدماتنا</a>
         <a (click)="scrollToSection('courses')" class="hover:text-indigo-600 block cursor-pointer">الدورات</a>
          <a routerLink="/Exams" class="hover:text-indigo-600 cursor-pointer">الامتحانات</a>
+         
+        @if(!isUserLogin){
+          <a routerLink="/Login" class="hover:text-indigo-600 cursor-pointer">تسجيل الدخول</a>
+        <a routerLink="/Register" class="hover:text-indigo-600 cursor-pointer">انشاء حساب</a>
+        }
+        @else {
+          <button (click)="LogOut()" class="hover:text-indigo-600 cursor-pointer"> تسجيل الخروج</button>
+        }
     </div>
   </header>
 

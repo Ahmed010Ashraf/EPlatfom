@@ -13,25 +13,58 @@
       <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">تسجيل الدخول :</h2>
       <p class="text-gray-500 text-center mb-6">ادخل على حسابك بإدخال رقم الهاتف و كلمة المرور المسجل بهم من قبل</p>
 
-      <form class="space-y-4">
+      <form class="space-y-4" [formGroup]="loginForm" (ngSubmit)="submitForm()">
         <div>
           <label for="phone" class="block text-gray-700 mb-1">رقم الهاتف</label>
-          <input id="phone" type="text" placeholder="مثال: 01012345678"
+          <input id="phone" formControlName="phoneNumber" type="text" placeholder="مثال: 01012345678"
                  class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none transition" />
         </div>
+        @if(loginForm.get("phoneNumber")?.errors && loginForm.get("phoneNumber")?.touched){
+              <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+        @if(loginForm.get("phoneNumber")?.errors?.["required"]){
+          <p class="font-bold">يجب ادخال الرقم</p>
+        }  
+        @if(loginForm.get("phoneNumber")?.errors?.["pattern"]){
+           <p class="font-bold">ادخل رقم صحيح</p>
+        }
+    </div>
+  } 
+        
+
+
+
+
 
         <div>
           <label for="password" class="block text-gray-700 mb-1">كلمة السر</label>
-          <input id="password" type="password" placeholder="••••••••"
+          <input id="password" formControlName="password" type="password" placeholder="••••••••"
                  class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none transition" />
         </div>
+                @if(loginForm.get("password")?.errors && loginForm.get("password")?.touched){
+              <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+        @if(loginForm.get("password")?.errors?.["required"]){
+          <p class="font-bold">يجب ادخال كلمة السر</p>
+        }  
+        @if(loginForm.get("password")?.errors?.["minlength"]){
+           <p class="font-bold">ادخل كلمة سر صحيح</p>
+        }
+    </div>
+  } 
 
        
 
-        <button type="submit"
+        <button type="submit" [disabled]="!loginForm.valid"
                 class="w-full bg-yellow-400 hover:bg-yellow-500 transition text-white font-semibold py-2 rounded-lg shadow-md">
           تسجيل الدخول
+          @if(isload){
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+          }
         </button>
+        @if(ErrorMessage!=''){
+          <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+            {{ErrorMessage}}
+          </div>
+        }
       </form>
 
       <div class="mt-6 text-center text-gray-600">
