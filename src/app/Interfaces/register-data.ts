@@ -4,5 +4,7 @@ userName: string,
   phoneNumber: string,
   parentPhonenumber: string,
   government: string,
-  levelNumber: number
+  levelNumber: number,
+  email:string,
+  fullName:string
 }

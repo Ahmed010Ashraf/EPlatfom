@@ -1,6 +1,8 @@
 import { NgClass, NgFor } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ExamService } from '../../app/Services/examService/exam-service';
 
 
 export interface ExamQuestion {
@@ -9,28 +11,67 @@ export interface ExamQuestion {
   choices: ExamChoice[];
 }
 
+
 export interface ExamChoice {
   id: number;
   text: string;
 }
 
-export interface ExamDetailss {
+
+
+
+
+export interface Option{
+id:number;
+text:string;
+isCorrect:boolean;
+questionId:number
+}
+
+export interface Question{
+id:number;
+title:string;
+picUrl:string | null;
+examId:number;
+options:Option[];
+}
+
+
+export interface AllExamsResponse {
   id: number;
   title: string;
-  durationInMinutes: number;
-  startDate: Date;
-  questions: ExamQuestion[];
+  duration: number;
+  startTime: Date;
+  isAvaliable: boolean;
 }
+
+
+
+export interface ExamDetailss {
+  title: string;
+  duration: number;
+  questions: Question[];
+}
+
+
+
+
+
+
+
+
 
 export interface StudentAnswerRequest {
   questionId: number;
-  choiceId: number | null; // null لو الطالب ما جاوبش
+  answerId: number | null; 
 }
 
 export interface SubmitExamRequest {
   examId: number;
+  sendDate:Date;
   answers: StudentAnswerRequest[];
 }
+
 
 
 @Component({
@@ -46,68 +87,63 @@ exam!: ExamDetailss;
   minutes = 0;
   seconds = 0;
   timerInterval: any;
+  examid !: number;
+  diableButton:boolean = true;
+  gradePage:boolean = false;
+  loodSend:boolean=false;
+  pageloader:boolean=true;
 
+
+ 
+  constructor(private route: ActivatedRoute , private _ExamService:ExamService , private _router : Router) {
+   
+    
+  }
 
   //start the exam
   ngOnInit(): void {
-    //test data
-    this.exam = {
-      id: 1,
-      title: 'امتحان أساسيات البرمجة',
-      durationInMinutes: 1,
-      startDate: new Date(),
-      questions: [
-        {
-          id: 1,
-          text: 'ما هو نوع البيانات الذي يستخدم لتخزين النصوص في C#؟',
-          choices: [
-            { id: 11, text: 'int' },
-            { id: 12, text: 'string' },
-            { id: 13, text: 'bool' },
-            { id: 14, text: 'char' },
-          ],
-        },
-        {
-          id: 2,
-          text: 'أي من التالي يستخدم لتنفيذ شرط معين؟',
-          choices: [
-            { id: 21, text: 'if' },
-            { id: 22, text: 'for' },
-            { id: 23, text: 'while' },
-            { id: 24, text: 'switch' },
-          ],
-        },
-        {
-          id: 3,
-          text: 'أي كلمة تُستخدم لتعريف دالة جديدة؟',
-          choices: [
-            { id: 31, text: 'new' },
-            { id: 32, text: 'void' },
-            { id: 33, text: 'class' },
-            { id: 34, text: 'function' },
-          ],
-        },
-      ],
-    };
 
-    if(localStorage.getItem("exam_answers")!=null){
+
+    
+     this.route.paramMap.subscribe(params => {
+      this.examid = Number(params.get('id')!);
+        this._ExamService.GetExamById(this.examid).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.exam=res;
+        this.pageloader = false;
+         if(localStorage.getItem("exam_answers")!=null){
       this.answers = JSON.parse(localStorage.getItem("exam_answers")!);
     }
+    
     else {
       this.answers = this.exam.questions.map((q)=>{
         return ({
           questionId : q.id,
-          choiceId : null
+          answerId : null
         })
       })
     }
     this.startTimer();
+    this.diableButton = false;
+      },
+      error:(err)=>{console.log(err);
+      }
+    })
+    });
+    
+  
+
+   
+    
+
+   
   }
 
 
   //handle the timer
   startTimer(){
-    let AllSec = this.exam.durationInMinutes * 60;
+    let AllSec = this.exam.duration * 60;
     if(localStorage.getItem("Timer")!=null){
       AllSec = JSON.parse(localStorage.getItem("Timer")!);
     }
@@ -127,7 +163,7 @@ exam!: ExamDetailss;
 
   //handle the cur question 
   get currentQuestion(){
-    return this.exam.questions[this.currentIndex];
+    return this.exam?.questions[this.currentIndex];
   }
 
 
@@ -140,7 +176,7 @@ exam!: ExamDetailss;
 
   //next question 
   nextQuestion(){
-    if(this.currentIndex < this.exam.questions.length -1){
+    if(this.currentIndex < this.exam?.questions.length -1){
       this.currentIndex++;
     }
   }
@@ -156,7 +192,7 @@ exam!: ExamDetailss;
   //get user answer by question id 
   GetUserAnswerByQuestionId(Qid : number){
     let ans = this.answers.find(a => a.questionId == Qid);
-    return ans?.choiceId;
+    return ans?.answerId;
   }
 
 
@@ -164,23 +200,47 @@ exam!: ExamDetailss;
   selectChoice(qid:number , cid:number){
     let ans = this.answers.find(a=>a.questionId==qid);
     if(ans){
-      ans.choiceId = cid
+      ans.answerId = cid
     }
     localStorage.setItem('exam_answers', JSON.stringify(this.answers));
   }
 
+
+
+  ExamAnswers!:SubmitExamRequest;
+  grade!:number;
+
   submitExam(){
-    let ExamAnswers :SubmitExamRequest  = {
-      examId : this.exam.id,
-      answers : this.answers
+    this.loodSend = true;
+     this.ExamAnswers   = {
+      examId : this.examid,
+      sendDate:new Date(),
+      answers : this.answers,
     }
 
     localStorage.removeItem("Timer");
     localStorage.removeItem("exam_answers");
     clearInterval(this.timerInterval);
-    console.log(ExamAnswers);
+    console.log(this.ExamAnswers);
+    this._ExamService.SendExam(this.ExamAnswers).subscribe({
+      next:(res)=>{console.log(res);
+        this.grade = res.grade;
+      },
+      error:(err)=>console.log(err)
+      
+    });
     
+    this.loodSend = false;
     alert("exam send succeflly");
+
+    this.gradePage = true;
+
+  }
+
+
+
+  BackToMainPage(){
+    this._router.navigate(['Exams'])
   }
 }
 

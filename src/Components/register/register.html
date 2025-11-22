@@ -101,6 +101,51 @@
 
 
 
+
+  <!-- full name  -->
+      <div class="flex flex-col mb-6">
+      <label for="fullname" class="block text-gray-700 mb-1"> الاسم ثلاثي</label>
+      <input id="fullname" formControlName="fullName" type="text"
+         class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none transition" />
+    </div>
+         @if(registerForm.get("fullName")?.errors && registerForm.get("fullName")?.touched){
+              <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+        @if(registerForm.get("fullName")?.errors?.["required"]){
+          <p class="font-bold">يجب ادخال الاسم</p>
+        }
+         @if(registerForm.get("fullName")?.errors?.["minlength"]){
+          <p class="font-bold">ادخل اسم صحيح</p>
+        }
+        
+    </div>
+  } 
+
+
+
+
+
+  <!-- email -->
+      <div class="flex flex-col mb-6">
+      <label for="email" class="block text-gray-700 mb-1">البريد الالكتروني</label>
+      <input id="email" formControlName="email" type="text"
+         class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none transition" />
+    </div>
+         @if(registerForm.get("email")?.errors && registerForm.get("email")?.touched){
+              <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+        @if(registerForm.get("email")?.errors?.["required"]){
+          <p class="font-bold">يجب ادخال البريد الالكتروني</p>
+        }
+         @if(registerForm.get("email")?.errors?.["email"]){
+          <p class="font-bold">ادخل بريد الكتروني صحيح</p>
+        }
+        
+    </div>
+  } 
+
+
+
+
+
     <!-- Government (Dropdown) -->
     <div class="flex flex-col mb-6">
       <label for="government"  class="block text-gray-700 mb-1">المحافظة</label>

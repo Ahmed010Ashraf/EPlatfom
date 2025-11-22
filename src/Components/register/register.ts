@@ -16,7 +16,9 @@ phoneNumber:new FormControl(null,[Validators.required,Validators.pattern(/^(010|
 parentPhonenumber:new FormControl(null,[Validators.required,Validators.pattern(/^(010|011|012|015)[0-9]{8}$/)]),
 password:new FormControl (null , [Validators.required , Validators.minLength(6)]),
 government: new FormControl(null , [Validators.required]),
-levelNumber:new FormControl(null, Validators.required)
+levelNumber:new FormControl(null, Validators.required),
+email:new FormControl(null, [Validators.required , Validators.email]),
+fullName:new FormControl(null , [Validators.required, Validators.minLength(4)])
 },this.comparePhones);
 
 
