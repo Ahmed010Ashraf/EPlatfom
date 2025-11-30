@@ -1,0 +1,32 @@
+<div class="min-h-screen bg-[#F2F5FF] px-6 md:px-16 py-12">
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold text-[#402BCD] mb-3">جميع الكورسات</h1>
+    <p class="text-gray-600 max-w-2xl mx-auto">
+      جميع الدورات التعليمية التي تحتاجها لتطوير مهاراتك في مكان واحد. اختر الدورة التي تناسبك وابدأ التعلم الآن!
+    </p>
+  </div>
+
+  <!-- Courses Grid -->
+  <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+    @for (course of courses; track course.id) {
+      <div
+        class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 cursor-pointer"
+        [routerLink]="['/Courses', course.id]"
+      >
+        <img [src]="course.imageUrl" alt="{{ course.title }}" class="h-56 w-full object-cover" />
+        <div class="p-6">
+          <h3 class="text-2xl font-semibold text-[#402BCD] mb-3">{{ course.title }}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            {{ course.description }}
+          </p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Footer -->
+  <div class="text-center mt-16 text-gray-500 text-sm">
+    © 2025 Learnify — All Rights Reserved.
+  </div>
+</div>

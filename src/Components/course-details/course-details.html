@@ -8,7 +8,7 @@
     />
     <div class="absolute inset-0 bg-[#402BCD]/70 flex items-center justify-center">
       <h1 class="text-white text-4xl md:text-5xl font-bold text-center">
-        إتقان تطوير الويب الحديث
+      {{course.title}}
       </h1>
     </div>
   </div>
@@ -20,43 +20,57 @@
       <div>
         <h2 class="text-2xl font-bold text-[#402BCD] mb-3">نظرة عامة على الكورس</h2>
         <p class="text-gray-700 leading-relaxed">
-          هذا الكورس يقدّم دليلاً شاملاً لإتقان تطوير الواجهات الأمامية باستخدام HTML وCSS
-          وJavaScript وأطر العمل الحديثة. ستتعلم كيف تبني تطبيقات ويب تفاعلية وسريعة
-          ومتجاوبة مع جميع الأجهزة بخبرة عملية ومشاريع حقيقية.
+         {{course.description}}
         </p>
       </div>
 
       <div>
         <h2 class="text-2xl font-bold text-[#402BCD] mb-3">ماذا ستتعلم</h2>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
-          <li>أساسيات تصميم واجهات المستخدم المتجاوبة</li>
-          <li>مفاهيم JavaScript الحديثة (ES6+)</li>
-          <li>بناء تطبيقات صفحة واحدة (SPA)</li>
-          <li>التعامل مع واجهات البرمجة (APIs)</li>
-          <li>رفع ونشر مشاريعك على الإنترنت</li>
+          <li>فهم عميق للاساسيات وضرورة تعلمها</li>
+          <li>التفكير النقدي وحل المشكلات</li>
+          <li>انتاج أفكاراً جديدة أو حلولاً بديلة للمشكلات</li>  
+          <li>تلخيص المعلومات المعقدة بطريقة منظمة وسهلة الفهم.</li>
         </ul>
       </div>
+
+
+
+      <!-- المحاضرات -->
+
+       @if(isUserSubscribed){
+         <div>
+        <h2 class="text-2xl font-bold text-[#402BCD] mb-3">المحاضرات</h2>
+        <ul class="list-disc list-inside space-y-2 text-gray-700">
+          @for (lesson of Lessons; track $index) {
+            <li class="cursor-pointer" (click)="GoToLesson(lesson.id)">{{lesson.title}}</li>
+          }
+          
+        </ul>
+      </div>
+       }
     </div>
 
     <!-- اليمين: معلومات الكورس -->
-    <div>
+   @if(!isUserSubscribed){
+ <div>
       <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-6">
         <h3 class="text-xl font-semibold text-[#402BCD] mb-4">
           معلومات الكورس
         </h3>
         <ul class="space-y-3 text-gray-700">
-          <li><strong>المدة:</strong> ٦ أسابيع</li>
+          <!-- <li><strong>المدة:</strong> ٦ أسابيع</li>
           <li><strong>المستوى:</strong> متوسط</li>
-          <li><strong>اللغة:</strong> العربية</li>
-          <li><strong>عدد المحاضرات:</strong> ٤٨</li>
+          <li><strong>اللغة:</strong> العربية</li> -->
+          <li><strong>عدد المحاضرات:</strong>{{course.lessonsCount}}</li>
         </ul>
 
         <div class="border-t border-gray-200 my-4"></div>
 
-        <div class="flex items-center justify-between mb-4">
+        <!-- <div class="flex items-center justify-between mb-4">
           <span class="text-lg font-semibold text-[#402BCD]">السعر</span>
           <span class="text-2xl font-bold text-[#402BCD]">$49</span>
-        </div>
+        </div> -->
 
         <!-- حقل إدخال كود الطالب -->
         <div class="mb-4">
@@ -64,6 +78,7 @@
             أدخل كود الطالب للتسجيل:
           </label>
           <input
+          [(ngModel)]="Code"
             id="studentCode"
             type="text"
             placeholder="مثلاً: ST12345"
@@ -72,11 +87,16 @@
         </div>
 
         <button
+        (click)="subscribeToCourse()"
           class="w-full bg-[#402BCD] text-white py-3 rounded-xl font-semibold hover:bg-[#2d1d91] transition duration-300"
         >
           تسجيل الاشتراك
         </button>
+        @if(errorInCode){
+          <p>الكود غير صحيح</p>
+        }
       </div>
     </div>
+   }
   </div>
 </div>

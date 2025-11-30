@@ -1,0 +1,63 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10">
+
+  <div class="w-full max-w-lg bg-white shadow-lg rounded-xl p-8 fade-in border border-gray-200">
+
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+      Create Enrollment
+    </h2>
+
+    <form (ngSubmit)="Generate()" class="space-y-6">
+
+      <!-- Course Select -->
+      <div class="flex flex-col space-y-1">
+        <label class="text-gray-700 font-medium">Course</label>
+        <select
+          [(ngModel)]="SendCodesData.courseId"
+          name="courseId"
+          class="border border-gray-300 rounded-lg px-3 py-2 bg-white text-gray-700
+                 focus:outline-none focus:ring-2 focus:ring-gray-400 transition">
+          <option value="" disabled selected>Select a course</option>
+          @for(course of courses ; track $index){
+            <option  [value]="course.id">
+            {{ course.title }}
+          </option>
+          }
+        </select>
+      </div>
+
+      <!-- Duration -->
+      <div class="flex flex-col space-y-1">
+        <label class="text-gray-700 font-medium">Duration (days)</label>
+        <input
+          type="number"
+          [(ngModel)]="SendCodesData.durationInDays"
+          name="duration"
+          class="border border-gray-300 rounded-lg px-3 py-2 text-gray-700 bg-white
+                 focus:outline-none focus:ring-2 focus:ring-gray-400 transition" />
+      </div>
+
+      <!-- Number of Codes -->
+      <div class="flex flex-col space-y-1">
+        <label class="text-gray-700 font-medium">Number of Codes</label>
+        <input
+          type="number"
+          [(ngModel)]="SendCodesData.numberOfCodes"
+          name="codes"
+          class="border border-gray-300 rounded-lg px-3 py-2 text-gray-700 bg-white
+                 focus:outline-none focus:ring-2 focus:ring-gray-400 transition" />
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 rounded-lg
+               font-medium transition">
+        Submit @if(loader){
+            <i class="fa-solid fa-spinner fa-spin"></i>
+        }
+      </button>
+
+    </form>
+
+  </div>
+</div>

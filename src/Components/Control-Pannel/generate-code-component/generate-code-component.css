@@ -1,0 +1,40 @@
+/* Fade-in animation */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow effect */
+.glow:hover {
+  box-shadow: 0 0 18px rgba(0, 200, 255, 0.4);
+  transform: scale(1.03);
+}
+
+/* Floating Labels */
+.floating-label {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #8b8f91;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+input:focus + .floating-label,
+input:not(:placeholder-shown) + .floating-label {
+  top: -8px;
+  font-size: 12px;
+  color: #06b6d4;
+}

@@ -1,0 +1,213 @@
+<!-- 
+
+
+
+<h1>Create exam page</h1>
+
+
+<label>exam title</label>
+<input type="text" [(ngModel)]="title"/>
+
+<br>
+<br>
+
+<label>duration title</label>
+<input type="number" [(ngModel)]="duration"/>
+
+<br>
+<br>
+
+<label>start date title</label>
+<input type="datetime-local" [(ngModel)]="startTime"/>
+
+
+
+<br><br>
+<label>select course</label>
+<select [(ngModel)]="courseid">
+
+    @for (c of courses; track $index) {
+        <option [value]="c.id">{{c.title}}</option>
+    }
+</select>
+
+<br><br>
+<label>select lect</label>
+<select [(ngModel)]="lectid">
+
+    @for (l of lects; track $index) {
+        <option [value]="l.id">{{l.title}}</option>
+    }
+</select>
+
+
+
+@for (item of questionsList; track $index ; let i = $index) {
+
+    <div>
+        <label>question {{$index + 1}} title</label>
+        <input type="text" [(ngModel)]="item.title"/>
+    </div>
+
+  
+
+    @for (ans of item.options; track $index) {
+
+        <div>
+            <label>question {{i + 1}} answer {{$index + 1}} title</label>
+            <input type="text" [(ngModel)]="ans.text"/>
+            <label>
+                <input type="radio" 
+                name="correctAnswer{{i}}"
+                (change)="setCorrectOption(i, $index)"
+                [checked]="ans.isCorrect"
+                /> Correct Answer
+            </label>
+        </div>
+        <button (click)="removeOption(i,$index)">remove option</button>
+        
+    }
+    <button (click)="addOption(i)">add answer</button>
+    <br>
+    <button (click)="removeQuestion(i)">remove question</button>
+    <hr>
+    
+}
+<button (click)="addQuestion()">add question</button>
+
+<button (click)="sendExamData()">create exam</button> -->
+
+
+
+
+<div class="max-w-4xl mx-auto p-6 bg-white shadow rounded-lg space-y-6">
+
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Create Exam</h1>
+
+  <!-- Exam Title -->
+  <div>
+    <label class="block text-gray-700 font-semibold mb-1">Exam Title</label>
+    <input type="text"
+           [(ngModel)]="title"
+           class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"/>
+  </div>
+
+  <!-- Duration -->
+  <div>
+    <label class="block text-gray-700 font-semibold mb-1">Duration (minutes)</label>
+    <input type="number"
+           [(ngModel)]="duration"
+           class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"/>
+  </div>
+
+  <!-- Start Time -->
+  <div>
+    <label class="block text-gray-700 font-semibold mb-1">Start Time</label>
+    <input type="datetime-local"
+           [(ngModel)]="startTime"
+           class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"/>
+  </div>
+
+  <!-- Course Select -->
+  <div>
+    <label class="block text-gray-700 font-semibold mb-1">Select Course</label>
+    <select [(ngModel)]="courseid"
+            class="w-full p-2 border rounded-md bg-gray-50 focus:ring focus:ring-blue-300">
+      
+      @for (c of courses; track $index) {
+        <option [value]="c.id">{{c.title}}</option>
+      }
+    </select>
+  </div>
+
+  <!-- Lecture Select -->
+  <div>
+    <label class="block text-gray-700 font-semibold mb-1">Select Lecture</label>
+    <select [(ngModel)]="lectid"
+            class="w-full p-2 border rounded-md bg-gray-50 focus:ring focus:ring-blue-300">
+      
+      @for (l of lects; track $index) {
+        <option [value]="l.id">{{l.title}}</option>
+      }
+    </select>
+  </div>
+
+  <!-- Questions Section -->
+  <div class="space-y-6">
+    <h2 class="text-2xl font-bold text-gray-700">Questions</h2>
+
+    @for (item of questionsList; track $index ; let i = $index) {
+
+      <div class="border p-4 rounded-lg bg-gray-50 shadow-sm space-y-4">
+
+        <!-- Question Title -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Question {{ i + 1 }} Title</label>
+          <input type="text"
+                 [(ngModel)]="item.title"
+                 class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"/>
+        </div>
+
+        <!-- Answers -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-semibold text-gray-700">Answers</h3>
+
+          @for (ans of item.options; track $index) {
+            <div class="flex items-center gap-3">
+
+              <input type="text"
+                     [(ngModel)]="ans.text"
+                     placeholder="Answer text"
+                     class="flex-1 p-2 border rounded-md focus:ring focus:ring-blue-300"/>
+
+              <label class="flex items-center gap-1 text-gray-700">
+                <input type="radio"
+                       name="correctAnswer{{i}}"
+                       [checked]="ans.isCorrect"
+                       (change)="setCorrectOption(i, $index)"
+                       class="w-5 h-5 text-blue-600"/>
+                Correct
+              </label>
+
+              @if(item.options.length > 1) {
+                <button (click)="removeOption(i,$index)"
+                        class="text-red-600 hover:underline font-medium">
+                  Remove
+                </button>
+              }
+            </div>
+          }
+
+          <!-- Add Answer -->
+          <button (click)="addOption(i)"
+                  class="text-blue-600 hover:underline text-sm font-medium">
+            + Add Answer
+          </button>
+        </div>
+
+        <!-- Remove Question -->
+        <button (click)="removeQuestion(i)"
+                class="text-red-700 hover:underline font-semibold">
+          Remove Question
+        </button>
+
+      </div>
+
+    }
+  </div>
+
+  <!-- Add Question -->
+  <div class="flex justify-start">
+    <button (click)="addQuestion()"
+            class="px-4 py-2 bg-green-600 text-white rounded-md shadow hover:bg-green-700">
+      + Add Question
+    </button>
+  </div>
+
+  <!-- Submit -->
+  <button (click)="sendExamData()"
+          class="w-full py-3 bg-blue-600 text-white font-bold rounded-md shadow hover:bg-blue-700">
+    Create Exam
+  </button>
+
+</div>

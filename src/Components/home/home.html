@@ -14,6 +14,7 @@
         <a (click)="scrollToSection('services')" class="hover:text-indigo-600 cursor-pointer ">خدماتنا</a>
         <a (click)="scrollToSection('courses')" class="hover:text-indigo-600 cursor-pointer">الدورات</a>
         <a routerLink="/Exams" class="hover:text-indigo-600 cursor-pointer">الامتحانات</a>
+        <a routerLink="/ControlPanel" class="hover:text-indigo-600 cursor-pointer">لوحه التحكم</a>
         @if(!isUserLogin){
           <a routerLink="/Login" class="hover:text-indigo-600 cursor-pointer">تسجيل الدخول</a>
         <a routerLink="/Register" class="hover:text-indigo-600 cursor-pointer">انشاء حساب</a>
@@ -37,6 +38,7 @@
         <a (click)="scrollToSection('services')" class="hover:text-indigo-600 block cursor-pointer ">خدماتنا</a>
         <a (click)="scrollToSection('courses')" class="hover:text-indigo-600 block cursor-pointer">الدورات</a>
          <a routerLink="/Exams" class="hover:text-indigo-600 cursor-pointer">الامتحانات</a>
+         <a routerLink="/ControlPanel" class="hover:text-indigo-600 cursor-pointer">لوحه التحكم</a>
          
         @if(!isUserLogin){
           <a routerLink="/Login" class="hover:text-indigo-600 cursor-pointer">تسجيل الدخول</a>
@@ -78,7 +80,31 @@
   <section id="courses" class="py-20 fade-in">
     <div class="max-w-6xl mx-auto px-6 text-center">
       <h2 class="text-3xl font-bold text-gray-900 mb-10">الدورات المميزة</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+  
+  <!-- Card -->
+@for(level of levels ; track $index){
+    <div (click)="GoToLevelCourses(level.id)" class="bg-white shadow-lg cursor-pointer rounded-xl p-6 flex flex-col items-center text-center">
+    <!-- Level Number -->
+    <div class="text-5xl font-extrabold text-indigo-600 mb-4">
+     {{ level.levelNumber}}
+    </div>
+
+    <!-- Level Name -->
+    <div class="text-xl font-semibold text-gray-800">
+      {{level.name}}
+    </div>
+
+    <!-- Academic Year -->
+    <div class="text-gray-500 text-md mt-1">
+      Academic Year:{{ level.academicYear}}
+    </div>
+  </div>
+}
+
+</div>
+
+      <!-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-go">
           <img src="https://img.freepik.com/free-photo/html-system-websites-concept_23-2150376770.jpg"
             alt="HTML Course" class="w-full h-52 object-cover transition duration-700 group-hover:scale-110">
@@ -108,7 +134,7 @@
             <a routerLink="/Courses" class="text-indigo-600 hover:underline font-semibold">التحق الآن →</a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 

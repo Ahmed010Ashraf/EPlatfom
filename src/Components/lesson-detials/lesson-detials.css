@@ -1,0 +1,26 @@
+/* hide YouTube overlay play button */
+.ytp-large-play-button { display: none !important; }
+
+/* hide YouTube pause/play controls */
+.ytp-play-button { display: none !important; }
+
+/* hide mute button */
+.ytp-mute-button { display: none !important; }
+
+/* hide next video */
+.ytp-next-button { display: none !important; }
+
+/* hide progress bar */
+.ytp-progress-bar-container { display: none !important; }
+
+/* hide YouTube logo */
+.ytp-youtube-button { display: none !important; }
+
+/* hide fullscreen */
+.ytp-fullscreen-button { display: none !important; }
+
+#videoContainer:fullscreen iframe {
+  width: 100vw;
+  height: 100vh;
+}
+

@@ -1,0 +1,59 @@
+@if(lesson){
+    <div class="max-w-5xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl" >
+
+  <h1 class="text-3xl font-bold mb-3">{{ lesson.title }}</h1>
+
+  <p class="text-gray-700 mb-6">{{ lesson.description }}</p>
+
+
+  <!-- VIDEO -->
+  <div id="videoContainer"
+     class="relative bg-black rounded-xl overflow-hidden"
+     (contextmenu)="disableRightClick($event)">
+
+  <!-- The video -->
+ <iframe
+  id="lessonVideo"
+  [src]="safeUrl"
+  class="w-full h-[450px] rounded-lg"
+  frameborder="0"
+  allow="autoplay; encrypted-media"
+  allowfullscreen>
+</iframe>
+
+
+
+  <!-- Transparent overlay to block right click -->
+  <div 
+    class="absolute inset-0"
+    (contextmenu)="disableRightClick($event)">
+  </div>
+
+  <!-- Controls -->
+  <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 flex items-center gap-4">
+
+    <button (click)="playVideo()" class="px-4 py-2 bg-green-600 rounded">Play</button>
+    <button (click)="pauseVideo()" class="px-4 py-2 bg-red-600 rounded">Pause</button>
+
+    <select (change)="changeSpeed($event)" class="px-2 py-1 bg-gray-800 rounded">
+      <option value="0.5">0.5x</option>
+      <option value="1" selected>1x</option>
+      <option value="1.5">1.5x</option>
+      <option value="2">2x</option>
+    </select>
+
+    <button (click)="fullscreen()" class="ml-auto px-4 py-2 bg-blue-600 rounded">
+      Fullscreen
+    </button>
+
+  </div>
+
+</div>
+
+</div>
+}
+
+
+@else {
+    <h1 class="bg-danger text-center">you are not allowed to watch this vieo</h1>
+}

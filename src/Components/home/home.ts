@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../app/Services/auth';
+import { ControlPannaleService } from '../../app/Services/ControlPanaleService/control-pannale-service';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +13,11 @@ export class Home implements OnInit {
 
   // id:string = "3";
 
-  constructor(private _auth : Auth , private _router : Router){
+  constructor(private _auth : Auth , private _router : Router , private _service:ControlPannaleService){
 
   }
+
+  levels : any;
   
 isUserLogin : boolean = false;
 
@@ -27,6 +30,15 @@ ngOnInit(): void {
   }
 
   console.log(this.isUserLogin);
+
+
+
+  this._service.getAllLevels().subscribe(res=>{
+    this.levels = res;
+    console.log(res);
+    
+  })
+
   
 }
 
@@ -56,5 +68,11 @@ LogOut(){
   localStorage.removeItem("Token");
   this._auth.userData.next(null);
   this._router.navigate(['Login'])
+}
+
+
+
+GoToLevelCourses(id:number){
+  this._router.navigate(["Level",id])
 }
 }

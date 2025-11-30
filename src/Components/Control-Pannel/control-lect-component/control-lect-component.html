@@ -1,0 +1,224 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+
+  @for(Lect of AllLessons; track Lect.id) {
+
+    <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200">
+
+      <!-- Image -->
+      <div class="h-40 w-full bg-gray-100">
+        @if(Lect.imageName) {
+          <img [src]="Lect.imageName"
+               alt="{{ Lect.title }} Image"
+               class="w-full h-full object-cover"/>
+        }
+
+        @if(!Lect.imageName) {
+          <div class="w-full h-full flex items-center justify-center text-gray-400">
+            No Image Available
+          </div>
+        }
+      </div>
+
+      <!-- Content -->
+      <div class="p-4 space-y-3">
+
+        <h2 class="text-xl font-bold text-gray-800">{{ Lect.title }}</h2>
+
+        <p class="text-gray-600 text-sm line-clamp-3">{{ Lect.description }}</p>
+
+        <div class="text-sm text-gray-500">
+          <span class="font-semibold text-gray-700">course:</span>
+          {{ Lect.courseName }}
+        </div>
+
+        
+
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-between items-center p-4 border-t bg-gray-50">
+
+        <button (click)="updateLect(Lect.id)"
+                class="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow-sm
+                       hover:bg-blue-700 transition">
+          Update
+        </button>
+
+        <button (click)="deleteLect(Lect.id)"
+                class="px-3 py-1.5 bg-red-600 text-white text-sm rounded-md shadow-sm
+                       hover:bg-red-700 transition">
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  
+  
+</div>
+<button 
+              class="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow-sm
+                     hover:bg-blue-700 transition"
+                     (click)="showAddLectModel = true">
+  + Add New Lesson
+      </button>
+
+
+
+@if(showAddLectModel){
+    <div 
+     class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+  <!-- Modal Container -->
+  <div class="bg-white w-full max-w-lg p-6 rounded-xl shadow-lg space-y-5 animate-fadeIn">
+
+    <h2 class="text-2xl font-bold text-gray-800">Add New Course</h2>
+
+    <!-- Form Fields -->
+    <div class="space-y-4">
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Title</label>
+        <input type="text"
+               [(ngModel)]="title"
+               class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Description</label>
+        <textarea [(ngModel)]="desc"
+                  class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
+                  rows="3"></textarea>
+      </div>
+
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">video Url</label>
+        <input type="text" [(ngModel)]="video"
+                  class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
+                  rows="3"/>
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">course</label>
+        <select
+               [(ngModel)]="courseId"
+               class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+
+               @for(item of allCourses;track $index){
+                <option [value]="item.id">{{item.title}}</option>
+               }
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Image URL</label>
+        <input type="file"
+               (change)="setimage($event)"
+               class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+      </div>
+
+    </div>
+
+    <!-- Modal Actions -->
+    <div class="flex justify-end gap-4 mt-6">
+
+      <button 
+        (click)="showAddLectModel = false"
+        class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition">
+        Cancel
+      </button>
+
+      <button 
+        (click)="createLect()"
+        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+        Save
+      </button>
+
+    </div>
+
+  </div>
+</div>
+}
+
+
+
+@if(showUpdateLectModel){
+    <div 
+     class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+  <!-- Modal Container -->
+  <div class="bg-white w-full max-w-lg p-6 rounded-xl shadow-lg space-y-5 animate-fadeIn">
+
+    <h2 class="text-2xl font-bold text-gray-800">Add New Course</h2>
+
+    <!-- Form Fields -->
+    <div class="space-y-4">
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Title</label>
+        <input type="text"
+               [(ngModel)]="title"
+               class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Description</label>
+        <textarea [(ngModel)]="desc"
+                  class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
+                  rows="3"></textarea>
+      </div>
+
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">video Url</label>
+        <input type="text" [(ngModel)]="video"
+                  class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
+                  rows="3"/>
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">course</label>
+        <select
+               [(ngModel)]="courseId"
+               class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+
+               @for(item of allCourses;track $index){
+                <option [value]="item.id">{{item.title}}</option>
+               }
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Image URL</label>
+        <input type="file"
+               (change)="setimage($event)"
+               class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+      </div>
+
+    </div>
+
+    <!-- Modal Actions -->
+    <div class="flex justify-end gap-4 mt-6">
+
+      <button 
+        (click)="showUpdateLectModel = false"
+        class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition">
+        Cancel
+      </button>
+
+      <button 
+        (click)="updateLectById(idforUpdate)"
+        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+        Save
+      </button>
+
+    </div>
+
+  </div>
+</div>
+}

@@ -1,0 +1,71 @@
+<div class="min-h-screen flex bg-slate-100" dir="rtl">
+
+  <!-- زر القائمة للموبايل -->
+  <button
+    (click)="sidebarOpen = true"
+    class="md:hidden fixed top-4 right-4 z-50 bg-slate-900 text-white p-2 rounded-lg shadow-lg">
+    ☰
+  </button>
+
+  <!-- خلفية عند فتح القائمة في الموبايل -->
+@if(sidebarOpen){
+  <div
+    
+    (click)="sidebarOpen = false"
+    class="fixed inset-0 bg-black/40 z-40 md:hidden">
+  </div>
+
+}
+
+  <!-- الشريط الجانبي -->
+  <aside
+    [ngClass]="{
+      'translate-x-0': sidebarOpen,
+      'translate-x-full': !sidebarOpen
+    }"
+    class="fixed top-0 right-0 top-0 right-0 w-64 bg-slate-900 text-white h-screen z-50
+           transform transition-transform duration-300 md:translate-x-0">
+
+    <div class="px-6 py-4 text-xl font-semibold border-b border-slate-700 flex justify-between items-center">
+      لوحة التحكم
+      <button
+        (click)="sidebarOpen = false"
+        class="md:hidden text-white text-2xl">
+        ×
+      </button>
+    </div>
+
+    <nav class="flex-1 px-3 py-4 space-y-2">
+      <a routerLink="Students" routerLinkActive="bg-slate-800"
+        class="flex items-center cursor-pointer px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+        الطلاب
+      </a>
+
+      <a routerLink="CreateCourse" routerLinkActive="bg-slate-800"
+        class="flex items-center cursor-pointer px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+        الكورسات
+      </a>
+
+      <a routerLink="CreateLect" routerLinkActive="bg-slate-800"
+        class="flex items-center cursor-pointer px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+        المحاضرات
+      </a>
+
+      <a routerLink="CreateExam" routerLinkActive="bg-slate-800"
+        class="flex items-center cursor-pointer px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+        الامتحانات
+      </a>
+
+      <a routerLink="GenerateCode" routerLinkActive="bg-slate-800"
+        class="flex items-center cursor-pointer px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+        إنشاء أكواد الدخول
+      </a>
+    </nav>
+  </aside>
+
+  <!-- محتوى الصفحة (تم حل المشكلة هنا) -->
+  <main class="flex-1 p-6 mt-16 md:mt-0 md:mr-64">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>
