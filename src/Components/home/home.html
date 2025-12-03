@@ -14,7 +14,9 @@
         <a (click)="scrollToSection('services')" class="hover:text-indigo-600 cursor-pointer ">خدماتنا</a>
         <a (click)="scrollToSection('courses')" class="hover:text-indigo-600 cursor-pointer">الدورات</a>
         <a routerLink="/Exams" class="hover:text-indigo-600 cursor-pointer">الامتحانات</a>
-        <a routerLink="/ControlPanel" class="hover:text-indigo-600 cursor-pointer">لوحه التحكم</a>
+        @if(isAdmin){
+          <a routerLink="/ControlPanel" class="hover:text-indigo-600 cursor-pointer">لوحه التحكم</a>
+        }
         @if(!isUserLogin){
           <a routerLink="/Login" class="hover:text-indigo-600 cursor-pointer">تسجيل الدخول</a>
         <a routerLink="/Register" class="hover:text-indigo-600 cursor-pointer">انشاء حساب</a>
@@ -38,7 +40,9 @@
         <a (click)="scrollToSection('services')" class="hover:text-indigo-600 block cursor-pointer ">خدماتنا</a>
         <a (click)="scrollToSection('courses')" class="hover:text-indigo-600 block cursor-pointer">الدورات</a>
          <a routerLink="/Exams" class="hover:text-indigo-600 cursor-pointer">الامتحانات</a>
-         <a routerLink="/ControlPanel" class="hover:text-indigo-600 cursor-pointer">لوحه التحكم</a>
+             @if(isAdmin){
+          <a routerLink="/ControlPanel" class="hover:text-indigo-600 cursor-pointer">لوحه التحكم</a>
+        }
          
         @if(!isUserLogin){
           <a routerLink="/Login" class="hover:text-indigo-600 cursor-pointer">تسجيل الدخول</a>
@@ -84,22 +88,54 @@
   
   <!-- Card -->
 @for(level of levels ; track $index){
-    <div (click)="GoToLevelCourses(level.id)" class="bg-white shadow-lg cursor-pointer rounded-xl p-6 flex flex-col items-center text-center">
+<div
+  (click)="GoToLevelCourses(level.id)"
+  class="relative bg-white rounded-2xl overflow-hidden shadow-lg cursor-pointer
+         transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl group">
+
+  <!-- IMAGE WITH PURPLE/BLUE GRADIENT OVERLAY -->
+  <div class="relative w-full h-56 overflow-hidden">
+    <img
+      [src]="level.picUrl"
+      alt="{{ levels.name }}"
+      class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+    />
+
+    <!-- CUSTOM COLOR GRADIENT OVERLAY -->
+    <div
+      class="absolute inset-0 bg-gradient-to-t 
+             from-[#4F39F6]/70  to-transparent">
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="relative p-6 flex flex-col items-center text-center">
+
     <!-- Level Number -->
-    <div class="text-5xl font-extrabold text-indigo-600 mb-4">
-     {{ level.levelNumber}}
+    <div
+      class="text-5xl font-extrabold text-[#4F39F6] mb-3
+             transition duration-300 group-hover:text-[#3b28e0]">
+      {{ level.levelNumber }}
     </div>
 
     <!-- Level Name -->
-    <div class="text-xl font-semibold text-gray-800">
-      {{level.name}}
+    <div
+      class="text-xl font-semibold text-gray-800
+             transition duration-300 group-hover:text-[#4F39F6]">
+      {{ level.name }}
     </div>
 
     <!-- Academic Year -->
-    <div class="text-gray-500 text-md mt-1">
-      Academic Year:{{ level.academicYear}}
+    <div
+      class="text-gray-500 text-md mt-2
+             transition duration-300 group-hover:text-gray-700">
+      Academic Year: {{ level.academicYear }}
     </div>
+
   </div>
+</div>
+
+
 }
 
 </div>
@@ -180,8 +216,8 @@
       </div>
       <div>
         <h3 class="text-lg font-semibold">تواصل معنا</h3>
-        <p class="mt-2 text-gray-400">Email: info@eduplatform.com</p>
-        <p class="text-gray-400">هاتف: +201234567890</p>
+        <p class="mt-2 text-gray-400">Email: aaboshady59@gmail.com</p>
+        <p class="text-gray-400">هاتف: +01558921462</p>
       </div>
     </div>
     <div class="mt-10 text-center text-gray-500">

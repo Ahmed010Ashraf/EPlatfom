@@ -373,4 +373,41 @@ GetLessonsByCourseId(id:any):Observable<any>{
 
 
 
+
+
+
+
+
+
+
+
+
+  // level services
+
+  AddLevel(data:any):Observable<any>
+  {
+    return this._http.post(`${Environment.BaseUrl}Level/CreateLevel`, data)
+  }
+
+
+  UpdateLevel(id:number , UpdatedLevle:any):Observable<any>{
+    return this._http.put(`${Environment.BaseUrl}Level/UpdateLevel?id=${id}`, UpdatedLevle)
+  }
+
+
+
+  GetAllLevels():Observable<any>{
+    return this._http.get(`${Environment.BaseUrl}Level/GetAllLevels`);
+  }
+
+
+  GetLevelById(id :number):Observable<any>{
+    return this._http.get(`${Environment.BaseUrl}Level/Level/${id}`)
+  }
+
+
+  DeletLevel(id:number):Observable<any>{
+    return this._http.delete(`${Environment.BaseUrl}Level/DeleteLevel?id=${id}`)
+  }
+
 }

@@ -4,7 +4,11 @@
     <p class="text-gray-500">اختر الامتحان الذي ترغب في البدء فيه</p>
   </div>
 
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+ @if(Exams.length == 0){
+<h2 class="text-center text-red-800">ليست هناك اي امتحانات متاحة</h2>
+ }
+ @else {
+   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
     @for( exam of Exams ; track $index ){
 <div
       class="bg-white border border-gray-200 shadow-sm hover:shadow-md rounded-2xl transition-all duration-300 p-5 flex flex-col justify-between"
@@ -34,4 +38,5 @@
 
    
   </div>
+ }
 </div>

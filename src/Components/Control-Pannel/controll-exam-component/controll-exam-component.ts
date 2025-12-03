@@ -89,18 +89,21 @@ duration: number=0;
   title: string ="";
   startTime: string =""; 
   messageAfterSaveExam !: String ;
+  // bobup:boolean = false;
 
   sendExamData(){
     const examData:CreateExamDto = {
       courseId: this.courseid == 0?null:Number(this.courseid),
-      lessonId: this.lectid == 0?null:Number(this.lectid),
+      lessonId: this.lectid == null?null:Number(this.lectid),
       duration: this.duration,
       title: this.title,
       startTime: new Date(this.startTime).toISOString(),
       questions: this.questionsList
     };
 
-
+    console.log(examData.lessonId);
+    console.log(this.lectid);
+    
 
     this._service.createExam(examData).subscribe({
       next:(res)=>{

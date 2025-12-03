@@ -18,6 +18,7 @@ export class Exams implements OnInit {
     this._ExamService.GetAllExams().subscribe(res=>{
       this.Exams = res
       console.log(res);
+      console.log(this.Exams);
     })
   }
 }

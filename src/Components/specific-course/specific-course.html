@@ -8,7 +8,11 @@
   </div>
 
   <!-- Courses Grid -->
-  <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+ @if(courses?.length == 0){
+  <h3 class="text-center text-red-800">ليست هناك كورسات متاحة لهذا المستوي حتي الان</h3>
+ }
+ @else {
+   <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
     @for (course of courses; track course.id) {
       <div
         class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 cursor-pointer"
@@ -24,6 +28,7 @@
       </div>
     }
   </div>
+ }
 
   <!-- Footer -->
   <div class="text-center mt-16 text-gray-500 text-sm">

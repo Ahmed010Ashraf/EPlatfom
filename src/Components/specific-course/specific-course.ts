@@ -24,6 +24,8 @@ ngOnInit(): void {
     
     this._service.GetCoursesByLevelId(this.LevelId).subscribe(res=>{
       this.courses = res;
+      console.log(this.courses);
+      
     })
    })
 

@@ -16,7 +16,19 @@ export class ExamService {
 
 
   GetAllExams():Observable<any>{
-    return this._http.get(`${Environment.BaseUrl}Exam`);
+
+    
+      const token = localStorage.getItem('Token'); 
+
+  const headers = token
+    ? new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    : undefined;
+   
+
+
+    return this._http.get(`${Environment.BaseUrl}Exam`,{headers});
   }
 
 

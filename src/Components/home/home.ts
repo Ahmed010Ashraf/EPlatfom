@@ -20,8 +20,13 @@ export class Home implements OnInit {
   levels : any;
   
 isUserLogin : boolean = false;
+isAdmin = false;
 
 ngOnInit(): void {
+  console.log("this is user data" , this._auth.userData.getValue()?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
+  if(this._auth.userData.getValue()?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]!="Student"){
+this.isAdmin = true;
+  }
   if(this._auth.userData.getValue() != null){
     this.isUserLogin = true;
   }
@@ -33,7 +38,7 @@ ngOnInit(): void {
 
 
 
-  this._service.getAllLevels().subscribe(res=>{
+  this._service.GetAllLevels().subscribe(res=>{
     this.levels = res;
     console.log(res);
     

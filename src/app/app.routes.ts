@@ -17,6 +17,7 @@ import { GenerateCodeComponent } from '../Components/Control-Pannel/generate-cod
 import { ControlStudents } from '../Components/Control-Pannel/control-students/control-students';
 import { SpecificCourse } from '../Components/specific-course/specific-course';
 import { LessonDetials } from '../Components/lesson-detials/lesson-detials';
+import { ContorlLevelComponent } from '../Components/Control-Pannel/Level/contorl-level-component/contorl-level-component';
 
 export const routes: Routes = [
     {path:"", redirectTo:"Home",pathMatch:"full"},
@@ -34,6 +35,7 @@ export const routes: Routes = [
         {path:"CreateLect" , component:ControlLectComponent , canActivate:[authGardGuard]},
         {path:"GenerateCode" , component:GenerateCodeComponent , canActivate:[authGardGuard]},
         {path:"Students" , component:ControlStudents , canActivate:[authGardGuard]},
+        {path:"Level" , component:ContorlLevelComponent , canActivate:[authGardGuard]},
     ] },
     {path:"ExamDetails/:id" , component:ExamDetails , canActivate:[authGardGuard]},
     {path:"Courses/:id" , component:CourseDetails , canActivate:[authGardGuard]},
