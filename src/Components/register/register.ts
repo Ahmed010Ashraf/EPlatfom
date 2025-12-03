@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../app/Services/auth';
+import { ControlPannaleService } from '../../app/Services/ControlPanaleService/control-pannale-service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { Auth } from '../../app/Services/auth';
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
-export class Register {
+export class Register implements OnInit{
 registerForm:FormGroup = new FormGroup({
 userName:new FormControl(null,[Validators.required , Validators.minLength(3)]),
 phoneNumber:new FormControl(null,[Validators.required,Validators.pattern(/^(010|011|012|015)[0-9]{8}$/)]),
@@ -21,11 +22,29 @@ email:new FormControl(null, [Validators.required , Validators.email]),
 fullName:new FormControl(null , [Validators.required, Validators.minLength(4)])
 },this.comparePhones);
 
+levels :any;
 
-constructor(private _Auth:Auth , private _router :Router) {
+constructor(private _Auth:Auth , private _router :Router , private _service:ControlPannaleService) {
   
   
 }
+
+
+ngOnInit(): void {
+  this._service.GetAllLevels().subscribe({
+    next:(res)=>{
+      console.log(res);
+      this.levels = res;
+      
+    },
+    error:(err)=>{
+      console.log(err);
+      
+    }
+  })
+}
+
+
 ErrorMessage:string = '';
 isload :boolean = false
 comparePhones(g:any){
@@ -41,16 +60,18 @@ else {
 
 submitForm(){
 this.isload = true;
-  if(this.registerForm.value.levelNumber == "الصف الأول"){
-    this.registerForm.value.levelNumber = 1;
-  }
-  else if (this.registerForm.value.levelNumber == "الصف الثاني"){
- this.registerForm.value.levelNumber = 2;
-  }
+//   if(this.registerForm.value.levelNumber == "الصف الأول"){
+//     this.registerForm.value.levelNumber = 1;
+//   }
+//   else if (this.registerForm.value.levelNumber == "الصف الثاني"){
+//  this.registerForm.value.levelNumber = 2;
+//   }
 
-  else {
-     this.registerForm.value.levelNumber = 3;
-  }
+//   else {
+//      this.registerForm.value.levelNumber = 3;
+//   }
+
+
   console.log(this.registerForm.value);
 
   this._Auth.Register(this.registerForm.value).subscribe({
