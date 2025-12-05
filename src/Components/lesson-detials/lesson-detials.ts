@@ -47,10 +47,14 @@ export class LessonDetials implements OnInit {
       next: (res) => {
         this.lesson = res;
 
-        const video = this.lesson.videos[0]; // we know only 1 video exists
-this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-  `${video}?controls=1&modestbranding=1&rel=0&disablekb=1&enablejsapi=1&origin=https://masaaq.netlify.app&playsinline=1`
-);
+const rawUrl = this.lesson.videos[0];
+const videoId = rawUrl.includes("youtu.be")
+  ? rawUrl.split("youtu.be/")[1].split("?")[0]
+  : rawUrl.split("v=")[1]?.split("&")[0];
+
+const embedUrl = `https://www.youtube.com/embed/${videoId}?controls=1&modestbranding=1&rel=0&disablekb=1&enablejsapi=1&origin=https://masaaq.netlify.app&playsinline=1`;
+
+this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
 
 
 
