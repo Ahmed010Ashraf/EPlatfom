@@ -1,4 +1,4 @@
 export  const Environment = {
-    BaseUrl:"http://masaq01.runasp.net/api/",
-    BaseUrl2:"http://masaq01.runasp.net"
+    BaseUrl:"https://masaq01.runasp.net/api/",
+    BaseUrl2:"https://masaq01.runasp.net"
 }
