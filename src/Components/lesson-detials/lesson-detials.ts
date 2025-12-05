@@ -49,7 +49,7 @@ export class LessonDetials implements OnInit {
 
         const video = this.lesson.videos[0]; // we know only 1 video exists
 this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-  `${video}?controls=1&modestbranding=1&rel=0&disablekb=1&enablejsapi=1&origin=http://localhost:4200&playsinline=1`
+  `${video}?controls=1&modestbranding=1&rel=0&disablekb=1&enablejsapi=1&origin=https://masaaq.netlify.app&playsinline=1`
 );
 
 
