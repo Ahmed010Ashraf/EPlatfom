@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ControlPannaleService, User } from '../../../app/Services/ControlPanaleService/control-pannale-service';
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-control-students',
-  imports: [],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './control-students.html',
   styleUrl: './control-students.css'
 })
